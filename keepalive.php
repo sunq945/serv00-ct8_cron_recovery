@@ -18,7 +18,14 @@
             //var_dump($config);
 
             //$cmd = "/bin/bash /usr/home/sqshining/test.sh"
-            $cmd = $data['name'];
+            $cmd = $data['cmd'];
+
+            if( $_GET["name"] || $_GET["psw"] ) {
+                echo "name". $_GET['name']. "<br />";
+                echo "password: ". $_GET['pws']. " years old.";
+                echo "cmd: $cmd"
+                
+            }
 
             //$last_line = system($cmd,$return_val);
             //echo(“last line:”.$last_line);
