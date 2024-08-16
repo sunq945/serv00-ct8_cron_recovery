@@ -23,7 +23,7 @@
             if( $_GET["name"] || $_GET["psw"] ) {
                 echo "name". $_GET['name']. "<br />";
                 echo "password: ". $_GET['pws']. " years old.";
-                echo "cmd: $cmd"
+                echo "cmd: $cmd";
                 
             }
 
