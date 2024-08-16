@@ -50,7 +50,8 @@ setup(){
 uninstall(){
     rm -f $WORKDIR/keepalive.php
     rm -f $WORKDIR/keepalive.sh
-    rm -f cron.snapshot
+    rm -f $WORKDIR/cron.snapshot
+    rm -f /usr/home/$USER/logs/keepalive.log
 }
 
 generate_base_info(){
@@ -91,10 +92,6 @@ generate_cron_snapshot(){
     crontab -l > cron.snapshot
     result=$(crontab -l)    
     green "生成crontab快照完毕"
-}
-
-main(){  
-    crontab cron.snapshot    
 }
 
 show_url(){
