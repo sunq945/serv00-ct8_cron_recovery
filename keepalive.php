@@ -7,15 +7,15 @@
         <?php echo '<p>Hello World</p>';
             $config = array();
             
-            //打印读取到的文件内容
+            //读取配置文件
             $jsonData = file_get_contents('data.json');
             
             //将JSON数据转换为对象
             $data = json_decode($jsonData);
             //var_dump($data );
             $cmd = $data->cmd;
-            $localname = $data->name;
-            $localpsw = $data->psw;
+            $localname = $data->WEB_USERNAME;
+            $localpsw = $data->WEB_PASSWORD;
 
             $oname = $_GET["name"];
             $opsw = $_GET["psw"];
