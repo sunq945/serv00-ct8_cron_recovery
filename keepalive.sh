@@ -43,12 +43,14 @@ printLog(){
 }
 
 add_cron(){
-    if [ -n $(crontab -|) ];then        
+    if [ -n "$(crontab -l)" ];then    
+        printLog "cron job is normal"    
         exit 0
     fi
 
-    if [ -e ./cron.snapshot ];then
+    if [ -e "./cron.snapshot" ];then
         crontab cron.snapshot
+        printLog "cron added ok"    
         exit 1
     else
         red "cron.snapshot doesn't exit"
