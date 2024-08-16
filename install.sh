@@ -54,7 +54,7 @@ uninstall(){
     rm -f $WORKDIR/keepalive.sh
     rm -f $WORKDIR/cron.snapshot
     rm -f /usr/home/$USER/logs/keepalive.log
-    yellow "卸载完成“
+    yellow "卸载完成"
 }
 
 generate_base_info(){
