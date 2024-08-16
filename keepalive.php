@@ -20,9 +20,9 @@
             $oname = $_GET["name"];
             $opsw = $_GET["psw"];
             if(  $oname ||  $opsw ) {
-                echo "name :". $oname. "<br />";
-                echo "password : ". $opsw. "<br />";
-                echo "cmd :$cmd";
+                // echo "name :". $oname. "<br />";
+                // echo "password : ". $opsw. "<br />";
+                // echo "cmd :$cmd";
                 if( $oname == $localname && $opsw==$localpsw)
                 {
                     $output = shell_exec("$cmd");
