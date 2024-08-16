@@ -39,7 +39,8 @@ setup(){
           generate_cron_snapshot 
           yellow "正在下载文件..."          
           download_php          
-          download_keepalive_sh	      
+          download_keepalive_sh	 
+          show_url     
           ;;
         [Nn]) exit 0 ;;
     	  *) red "无效的选择，请输入y或n" && menu ;;
