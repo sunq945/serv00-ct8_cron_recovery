@@ -5,31 +5,31 @@
     </head>
     <body>
         <?php echo '<p>Hello World</p>';
-            //$output = shell_exec('nohup /bin/bash /usr/home/sqshining/test.sh > /dev/null 2>&1 &');
-            //echo "<p>output = $output</p>";
             $config = array();
             
             //打印读取到的文件内容
-            //var_dump(file_get_contents("keepalive.conf"));
             $jsonData = file_get_contents('data.json');
             
             //将JSON数据转换为对象
-            $data = json_decode($jsonData); 
-            //var_dump($config);
+            $data = json_decode($jsonData);
+            //var_dump($data );
+            $cmd = $data->cmd;
+            $localname = $data->name;
+            $localpsw = $data->psw;
 
-            //$cmd = "/bin/bash /usr/home/sqshining/test.sh"
-            $cmd = $data['cmd'];
-
-            if( $_GET["name"] || $_GET["psw"] ) {
-                echo "name". $_GET['name']. "<br />";
-                echo "password: ". $_GET['pws']. " years old.";
-                echo "cmd: $cmd";
-                
+            $oname = $_GET["name"];
+            $opsw = $_GET["psw"];
+            if(  $oname ||  $opsw ) {
+                echo "name :". $oname. "<br />";
+                echo "password : ". $opsw. "<br />";
+                echo "cmd :$cmd";
+                if( $oname == $localname && $opsw==$localpsw)
+                {
+                    $output = shell_exec("$cmd");
+                    echo "<p>output =【 $output 】</p>";
+                }                 
             }
 
-            //$last_line = system($cmd,$return_val);
-            //echo(“last line:”.$last_line);
-            //echo(“return:”.$return_val);
         ?>
     </body>
 </html>
