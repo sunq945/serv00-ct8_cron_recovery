@@ -37,7 +37,7 @@ setup(){
           generate_cron_snapshot 
           yellow "正在下载文件..."          
           download_php          
-          download_keepalive_sh	 
+          download_cronrecovery_sh	 
           show_url     
           ;;
         [Nn]) exit 0 ;;
@@ -48,10 +48,10 @@ setup(){
 
 uninstall(){
     yellow "正在卸载..."
-    rm -f $WORKDIR/keepalive.php
-    rm -f $WORKDIR/keepalive.sh
+    rm -f $WORKDIR/cronrecovery.php
+    rm -f $WORKDIR/cronrecovery.sh
     rm -f $WORKDIR/cron.snapshot
-    rm -f /usr/home/$USER/logs/keepalive.log
+    rm -f /usr/home/$USER/logs/cronrecovery.log
     green "卸载完成"
 }
 
@@ -72,24 +72,24 @@ cat > data.json << EOF
 {
 "WEB_USERNAME":"${WEB_USERNAME:-'admin'}",
 "WEB_PASSWORD":"${WEB_PASSWORD:-'password'}",
-"cmd":"/bin/bash $WORKDIR/keepalive.sh",
-"url":"https://$DOMAIN/keepalive.php?token=$(generate_token ${WEB_USERNAME} ${WEB_PASSWORD})"
+"cmd":"/bin/bash $WORKDIR/cronrecovery.sh",
+"url":"https://$DOMAIN/cronrecovery.php?token=$(generate_token ${WEB_USERNAME} ${WEB_PASSWORD})"
 }
 EOF
 }
 
 download_php(){
-    rm -f $WORKDIR/keepalive.php
-    yellow "正在下载 keepalive.php "
-    wget -q --show-progress -c "https://raw.githubusercontent.com/sunq945/serv00-ct8_keepalive/main/keepalive.php" -O "keepalive.php"
-    green "下载 keepalive.php 完毕"
+    rm -f $WORKDIR/cronrecovery.php
+    yellow "正在下载 cronrecovery.php "
+    wget -q --show-progress -c "https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/cronrecovery.php" -O "cronrecovery.php"
+    green "下载 cronrecovery.php 完毕"
 }
 
-download_keepalive_sh(){
-    rm -f $WORKDIR/keepalive.sh
-    yellow "正在下载 keepalive.sh "
-    wget -q --show-progress -c "https://raw.githubusercontent.com/sunq945/serv00-ct8_keepalive/main/keepalive.sh" -O "keepalive.sh" &&  chmod +x keepalive.sh
-    green "下载 keepalive.sh 完毕"
+download_cronrecovery_sh(){
+    rm -f $WORKDIR/cronrecovery.sh
+    yellow "正在下载 cronrecovery.sh "
+    wget -q --show-progress -c "https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/cronrecovery.sh" -O "cronrecovery.sh" &&  chmod +x cronrecovery.sh
+    green "下载 cronrecovery.sh 完毕"
     
 }
 
@@ -128,7 +128,7 @@ menu() {
    clear
    echo ""
    purple "============ serv00|ct8 定时任务保活 一键安装脚本 =======\n"
-   echo -e "${green}脚本地址：${re}${yellow}https://github.com/sunq945/serv00-ct8_keepalive${re}\n"
+   echo -e "${green}脚本地址：${re}${yellow}https://github.com/sunq945/serv00-ct8_cron_recovery${re}\n"
    purple "转载请注明出处，请勿滥用\n"
    green "1. 安装"
    echo  "==========================="
