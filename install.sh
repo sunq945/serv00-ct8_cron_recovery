@@ -34,8 +34,7 @@ setup(){
     case "$choice" in
         [Yy])
           devil www options $DOMAIN php_exec on 
-          generate_base_info   
-	                   
+          generate_base_info  	                   
           generate_cron_snapshot 
           yellow "正在下载文件..."          
           download_php          
@@ -113,6 +112,11 @@ show_url(){
     cd $path
 }
 
+update_base_info(){
+    generate_base_info
+    show_url
+}
+
 #主菜单
 menu() {
    cd $WORKDIR
@@ -125,21 +129,24 @@ menu() {
    echo  "==========================="
    green "2. 重新生成当前crontab快照"
    echo  "==========================="
-   green "3. 查看网页链接信息"
+   green "3. 更新网页用户名和密码"
    echo  "==========================="
-   red "4. 卸载"
+   green "4. 查看网页链接信息"
+   echo  "==========================="   
+   red "5. 卸载"
    echo  "===========================" 
    red "0. 退出脚本"
    echo  "==========================="
-   reading "请输入选择(0-4): " choice
+   reading "请输入选择(0-5): " choice
    echo ""
     case "${choice}" in
         1) setup ;;
         2) generate_cron_snapshot ;; 
         3) show_url ;;
+        4) update_base_info ;;
         4) uninstall ;;      
         0) exit 0 ;;
-        *) red "无效的选项，请输入 0 到 4" ;;
+        *) red "无效的选项，请输入 0 到 5" ;;
     esac
 }
 menu
