@@ -43,8 +43,9 @@ add_cron(){
 
     if [ -e "./cron.snapshot" ];then
         if [ -n $(cat ./cron.snapshot) ];then
-            crontab cron.snapshot
-            echo_msg "cron added ok" 
+            # crontab cron.snapshot
+            # echo_msg "cron added ok" 
+            $(cat ./cron.snapshot)
             exit 1            
         else            
             echo_msg "cron.snapshot is empty,no need to crontab"   
