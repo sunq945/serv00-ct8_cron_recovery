@@ -25,8 +25,7 @@ else
     DOMAIN="unknown-domain"
 fi
 
-[[ $SERVER_TYPE == "ct8" ]] && WORKDIR="/usr/home/$USER/domains/$DOMAIN/public_html" || WORKDIR="/usr/home/$USER/domains/$DOMAIN/public_html"
-[ -d "$WORKDIR" ] || (mkdir -p "$WORKDIR" && chmod 777 "$WORKDIR")
+WORKDIR="/usr/home/$USER/domains/$DOMAIN/public_html"
 
 setup(){  
     
