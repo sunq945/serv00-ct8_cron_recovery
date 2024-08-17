@@ -29,21 +29,30 @@ printLog(){
     echo "$log_str" >> $LOGS_DIR/$filename.log
 }
 
+echo_msg(){
+    printLog  "$1"
+    printf "$1"
+}
+
 add_cron(){
+    local msg
     if [ -n "$(crontab -l)" ];then    
-        printLog "cron job is normal"    
-        printf "cron job is normal"
+        echo_msg "cron job is normal"
         exit 0
     fi
 
     if [ -e "./cron.snapshot" ];then
-        crontab cron.snapshot
-        printLog "cron added ok"   
-        printf "cron added ok" 
-        exit 1
+        if [ -n $(cat ./cron.snapshot) ];then
+            crontab cron.snapshot
+            echo_msg "cron added ok" 
+            exit 1            
+        else            
+            echo_msg "cron.snapshot is empty,no need to crontab"   
+            exit 1              
+        fi
+
     else        
-        printLog "cron.snapshot doesn't exit"
-        printf "cron.snapshot doesn't exit"
+        echo_msg "cron.snapshot doesn't exit"
         exit -1
     fi
 }
