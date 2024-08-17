@@ -47,7 +47,7 @@ add_cron(){
             while [ "$res" == "" ]
             do
                 crontab cron.snapshot
-                sleep 3
+                sleep 10
                 res=$(crontab -l|grep $USER)
             done;            
             echo_msg "cron added ok" 
