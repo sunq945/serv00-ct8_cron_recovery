@@ -1,17 +1,5 @@
 #!/bin/bash
 
-# 定义颜色
-re="\033[0m"
-red="\033[1;91m"
-green="\e[1;32m"
-yellow="\e[1;33m"
-purple="\e[1;35m"
-red() { echo -e "\e[1;91m$1\033[0m"; }
-green() { echo -e "\e[1;32m$1\033[0m"; }
-yellow() { echo -e "\e[1;33m$1\033[0m"; }
-purple() { echo -e "\e[1;35m$1\033[0m"; }
-reading() { read -p "$(red "$1")" "$2"; }
-
 USERNAME=$(whoami)
 HOSTNAME=$(hostname)
 
@@ -31,8 +19,7 @@ else
     DOMAIN="unknown-domain"
 fi
 
-[[ $SERVER_TYPE == "ct8" ]] && WORKDIR="/usr/home/$USER/domains/$DOMAIN/logs" || WORKDIR="/usr/home/$USER/domains/$DOMAIN/logs"
-
+WORKDIR="/usr/home/$USER/domains/$DOMAIN/public_html"
 
 printLog(){
     local time=$(date "+%Y-%m-%d %H:%M:%S")
@@ -45,16 +32,18 @@ printLog(){
 add_cron(){
     if [ -n "$(crontab -l)" ];then    
         printLog "cron job is normal"    
+        printf "cron job is normal"
         exit 0
     fi
 
     if [ -e "./cron.snapshot" ];then
         crontab cron.snapshot
-        printLog "cron added ok"    
+        printLog "cron added ok"   
+        printf "cron added ok" 
         exit 1
-    else
-        red "cron.snapshot doesn't exit"
+    else        
         printLog "cron.snapshot doesn't exit"
+        printf "cron.snapshot doesn't exit"
         exit -1
     fi
 }
