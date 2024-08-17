@@ -5,7 +5,19 @@
     </head>
     <body>
         <?php echo '<p>Hello World</p>';
-            $config = array();
+
+        function base64UrlDecode(string $input)
+        {
+            $remainder = strlen($input) % 4;
+            if ($remainder) {
+            $addlen = 4 - $remainder;
+            $input .= str_repeat('=', $addlen);
+            }
+            return base64_decode(strtr($input, '-_', '+/'));
+        }
+
+
+            $payload = array();
             
             //读取配置文件
             $jsonData = file_get_contents('data.json');
@@ -17,8 +29,12 @@
             $localname = $data->WEB_USERNAME;
             $localpsw = $data->WEB_PASSWORD;
 
-            $oname = $_GET["name"];
-            $opsw = $_GET["psw"];
+            $base64payload = $_GET["token"];           
+            
+            $payload = json_decode(base64UrlDecode($base64payload), JSON_OBJECT_AS_ARRAY);
+          
+            $oname = $payload["name"];
+            $opsw = $payload["psw"];
             if(  $oname ||  $opsw ) {
                 // echo "name :". $oname. "<br />";
                 // echo "password : ". $opsw. "<br />";
