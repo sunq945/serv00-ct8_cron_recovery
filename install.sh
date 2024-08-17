@@ -142,8 +142,8 @@ menu() {
     case "${choice}" in
         1) setup ;;
         2) generate_cron_snapshot ;; 
-        3) show_url ;;
-        4) update_base_info ;;
+        3) update_base_info ;;
+        4) show_url ;;
         5) uninstall ;;      
         0) exit 0 ;;
         *) red "无效的选项，请输入 0 到 5" ;;
