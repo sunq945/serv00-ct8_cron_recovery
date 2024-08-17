@@ -42,7 +42,8 @@ add_cron(){
     fi
 
     if [ -e "./cron.snapshot" ];then
-        if [ -n $(cat ./cron.snapshot|sed 's/ //g') ];then
+        # if [ -n $(cat ./cron.snapshot|sed 's/ //g'|sed 's/\n//g') ];then
+        if [ -n $(echo "$(<./cron.snapshot)" |sed 's/ //g'|sed 's/\n//g') ];then
             # crontab cron.snapshot
             # echo_msg "cron added ok" 
             $(cat ./cron.snapshot)
