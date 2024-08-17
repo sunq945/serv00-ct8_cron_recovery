@@ -127,7 +127,7 @@ menu() {
    cd $WORKDIR
    clear
    echo ""
-   purple "============ serv00|ct8 定时任务保活 一键安装脚本 =======\n"
+   purple "============ serv00|ct8 恢复定时任务 一键安装脚本 =======\n"
    echo -e "${green}脚本地址：${re}${yellow}https://github.com/sunq945/serv00-ct8_cron_recovery${re}\n"
    purple "转载请注明出处，请勿滥用\n"
    green "1. 安装"
