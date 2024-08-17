@@ -55,6 +55,12 @@ uninstall(){
     green "卸载完成"
 }
 
+generate_token(){
+	local content="{\"name\":\"$1\",\"psw\":\"$2\"}"
+	local stringb64=$(echo -n "${content}" |base64 | sed 's#/#_#g' | sed 's/+/-/g' | sed 's/=//g')
+	echo "$stringb64"
+}
+
 generate_base_info(){
     yellow "请输入 WEB_USERNAME（默认值：admin）："
     read -r WEB_USERNAME
@@ -67,7 +73,7 @@ cat > data.json << EOF
 "WEB_USERNAME":"${WEB_USERNAME:-'admin'}",
 "WEB_PASSWORD":"${WEB_PASSWORD:-'password'}",
 "cmd":"/bin/bash $WORKDIR/keepalive.sh",
-"url":"https://$DOMAIN/keepalive.php?name=$WEB_USERNAME&psw=$WEB_PASSWORD"
+"url":"https://$DOMAIN/keepalive.php?token=$(generate_token ${WEB_USERNAME} ${WEB_PASSWORD})"
 }
 EOF
 }
