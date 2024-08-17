@@ -43,7 +43,9 @@ add_cron(){
 
     if [ -e "./cron.snapshot" ];then
         if [ -s "./cron.snapshot" ];then
-            crontab cron.snapshot
+            while [ -z "$(crontab -l)" ] ;do
+                crontab cron.snapshot
+            done;            
             echo_msg "cron added ok" 
             exit 1            
         else            
