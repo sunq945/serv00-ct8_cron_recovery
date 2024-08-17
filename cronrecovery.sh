@@ -43,8 +43,12 @@ add_cron(){
 
     if [ -e "./cron.snapshot" ];then
         if [ -s "./cron.snapshot" ];then
-            while [ -z "$(crontab -l)" ] ;do
+            local res="" 
+            while [ "$res" == "" ]
+            do
                 crontab cron.snapshot
+                sleep 3
+                res=$(crontab -l|grep $USER)
             done;            
             echo_msg "cron added ok" 
             exit 1            
