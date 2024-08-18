@@ -94,10 +94,10 @@ download_cronrecovery_sh(){
 }
 
 generate_cron_snapshot(){
-    rm -f cron.snapshot
+    rm -f snapshot.cron
     yellow "正在生成crontab记录快照..."   
-    crontab -l > cron.snapshot
-    result=$(crontab -l)    
+    crontab -l > snapshot.cron
+    # result=$(crontab -l)    
     green "生成crontab快照完毕"
 }
 
