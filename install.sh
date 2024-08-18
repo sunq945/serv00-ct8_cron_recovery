@@ -51,6 +51,7 @@ uninstall(){
     rm -f $WORKDIR/cronrecovery.php
     rm -f $WORKDIR/cronrecovery.sh
     rm -f $WORKDIR/cron.snapshot
+    rm -f $WORKDIR/data.json
     rm -f /usr/home/$USER/logs/cronrecovery.log
     green "卸载完成"
 }
