@@ -1,9 +1,5 @@
 # serv00-ct8_cron_recovery
 
-安装命令：
-```
-bash <(curl -fSsl https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/install.sh)
-```
 
 # 原理
 受 https://linux.do/t/topic/167096/46?page=3 这篇文章的启发，原理如下
