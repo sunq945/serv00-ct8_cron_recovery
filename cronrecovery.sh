@@ -37,28 +37,31 @@ echo_msg(){
 add_cron(){
     local msg
     if [ -n "$(crontab -l)" ];then    
-        echo_msg "cron job is normal"
+        echo_msg "cron job is normal"        
         exit 0
     fi
-
-    if [ -e "./cron.snapshot" ];then
-        if [ -s "./cron.snapshot" ];then
+   
+    if [ -e "./snapshot.cron" ];then
+        if [ -s "./snapshot.cron" ];then
             local res="" 
-            while [ "$res" == "" ]
-            do
-                crontab cron.snapshot
-                sleep 10
-                res=$(crontab -l|grep $USER)
-            done;            
+            # while [ "$res" == "" ]
+            # do
+                ret=$(crontab snapshot.cron)
+                # echo "ret:$ret"
+            #     sleep 10
+            #    res=$(crontab -l|grep $USER) 
+            #    #echo "res=[$res]"  
+            # done; 
+            # echo_msg "res=[$res]"           
             echo_msg "cron added ok" 
             exit 1            
         else            
-            echo_msg "cron.snapshot is empty,no need to crontab"   
+            echo_msg "snapshot.cron is empty,no need to crontab"   
             exit 1              
         fi
 
     else        
-        echo_msg "cron.snapshot doesn't exit"
+        echo_msg "snapshot.cron doesn't exit"
         exit -1
     fi
 }
