@@ -15,4 +15,6 @@ bash <(curl -fSsl https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_reco
 ## 2、使用：
 安装完成后，会自动生成访问页面链接地址，你可以使用该地址，用第三方服务器来调用即可，参考文章：
 
-https://linux.do/t/topic/167096/46?page=3
+1、https://linux.do/t/topic/167096/46?page=3
+2、https://github.com/k0baya/X-for-serv00
+
