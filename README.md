@@ -1,4 +1,4 @@
-# serv00-ct8_cron_recovery
+# serv00-ct8 crontab 列表的自动恢复
 
 
 # 原理
