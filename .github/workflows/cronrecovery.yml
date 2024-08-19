@@ -1,0 +1,17 @@
+name: 恢复serv00_ct8_crontab 任务列表
+
+on:
+  schedule:
+    - cron: '*/3 * * * *'  # 每3分钟执行一次
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: 'Checkout codes'
+        uses: actions/checkout@v1
+    # 执行仓库中的脚本文件
+      - name: '访问网页'
+        run: curl https://sqshining.ct8.pl/cronrecovery.php?token=eyJuYW1lIjoiYWRtaW4iLCJwc3ciOiJwYXNzd29yZCJ9
+
+      
