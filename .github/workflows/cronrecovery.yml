@@ -3,6 +3,7 @@ name: 恢复serv00_ct8_crontab 任务列表
 on:
   schedule:
     - cron: '*/3 * * * *'  # 每3分钟执行一次
+    workflow_dispatch:
 jobs:
   bot:
     runs-on: ubuntu-latest
