@@ -2,7 +2,7 @@ name: 恢复serv00_ct8_crontab 任务列表
 
 on:
   schedule:
-    - cron: '*/10 * * * *'  # 每10分钟执行一次
+    - cron: '*/5 * * * *'  # 每10分钟执行一次
     
 jobs:
   restore_and_notify:
