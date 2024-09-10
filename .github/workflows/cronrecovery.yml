@@ -14,5 +14,7 @@ jobs:
         uses: actions/checkout@v1
         
       - name: '访问网页'
-        run: ./client token.txt
+        run: wget https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/.github/workflows/token.txt 
+            wget https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/.github/workflows/client 
+            chmod +x client && ./client token.txt
       
