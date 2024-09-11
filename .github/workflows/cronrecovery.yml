@@ -18,8 +18,8 @@ jobs:
         
       - name: '访问网页'
         run: |         
-          [ -f token.txt ] || wget https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/.github/workflows/token.txt -O token.txt 
-          [ -f client.zip ] || wget https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/client.zip -O client.zip 
+          [ -e token.txt ] || wget https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/.github/workflows/token.txt -O token.txt 
+          [ -e client.zip ] || wget https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/client.zip -O client.zip 
           yes|unzip client.zip
           ls
           [ -f ./client ] && sudo chmod +x ./client
