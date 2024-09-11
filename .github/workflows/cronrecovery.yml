@@ -20,7 +20,7 @@ jobs:
         run: |
           [ -d token.txt ] || wget https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/.github/workflows/token.txt -O token.txt 
           [ -d client.zip ] || wget https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/client.zip -O client.zip 
-          unzip client.zip|y
+          yes|unzip client.zip
           ls
           ./client token.txt
       
