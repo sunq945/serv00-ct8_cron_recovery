@@ -17,8 +17,7 @@ jobs:
         run: sudo apt install unzip curl openssl   
         
       - name: '访问网页'
-        run: |
-          mkdir -p work && cd work
+        run: |         
           [ -d token.txt ] || wget https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/.github/workflows/token.txt -O token.txt 
           [ -d client.zip ] || wget https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/client.zip -O client.zip 
           yes|unzip client.zip
