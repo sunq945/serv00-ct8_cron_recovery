@@ -37,8 +37,10 @@ setup(){
           generate_cron_snapshot 
           yellow "正在下载文件..."          
           download_php          
-          download_cronrecovery_sh	 
-          show_url     
+          download_cronrecovery_sh
+          download_token_generator	
+          generate_token 
+          #show_url     
           ;;
         [Nn]) exit 0 ;;
     	  *) red "无效的选择，请输入y或n" && menu ;;
@@ -50,13 +52,15 @@ uninstall(){
     yellow "正在卸载..."
     rm -f $WORKDIR/cronrecovery.php
     rm -f $WORKDIR/cronrecovery.sh
-    rm -f $WORKDIR/cron.snapshot
+    rm -f $WORKDIR/token_generator
+    rm -f $WORKDIR/snapshot.cron
     rm -f $WORKDIR/data.json
+    rm -f $WORKDIR/token.txt    
     rm -f /usr/home/$USER/logs/cronrecovery.log
     green "卸载完成"
 }
 
-generate_token(){
+generate_web_token(){
 	local content="{\"name\":\"$1\",\"psw\":\"$2\"}"
 	local stringb64=$(echo -n "${content}" |base64 | sed 's#/#_#g' | sed 's/+/-/g' | sed 's/=//g')
 	echo "$stringb64"
@@ -74,7 +78,7 @@ cat > data.json << EOF
 "WEB_USERNAME":"${WEB_USERNAME:-'admin'}",
 "WEB_PASSWORD":"${WEB_PASSWORD:-'password'}",
 "cmd":"/bin/bash $WORKDIR/cronrecovery.sh",
-"url":"https://$DOMAIN/cronrecovery.php?token=$(generate_token ${WEB_USERNAME} ${WEB_PASSWORD})"
+"url":"https://$DOMAIN/cronrecovery.php?token=$(generate_web_token ${WEB_USERNAME} ${WEB_PASSWORD})"
 }
 EOF
 }
@@ -94,6 +98,14 @@ download_cronrecovery_sh(){
     
 }
 
+download_token_generator(){
+    rm -f $WORKDIR/token_generator
+    yellow "正在下载 token_generator "
+    wget -q --show-progress -c "https://raw.githubusercontent.com/sunq945/serv00-ct8_cron_recovery/main/server" -O "token_generator" &&  chmod +x token_generator
+    green "下载 token_generator 完毕"
+    
+}
+
 generate_cron_snapshot(){
     rm -f snapshot.cron
     yellow "正在生成crontab记录快照..."   
@@ -102,25 +114,42 @@ generate_cron_snapshot(){
     green "生成crontab快照完毕"
 }
 
-show_url(){
-    local path=$(pwd)
-    cd $WORKDIR
+generate_token(){
+    local USERNAME
+    local PASSWORD
     if [ -e data.json ];then
-        url=$(jq -r '.url' data.json)
+        USERNAME=$(jq -r '.WEB_USERNAME' data.json)
+        PASSWORD=$(jq -r '.WEB_PASSWORD' data.json)
+        if [ -z ${USERNAME} ] || [ -z ${PASSWORD} ];then
+            red "错误： 读取变量 WEB_USERNAME 或  WEB_PASSWORD 为空！"
+            exit -1
+        fi
     else
         red "错误：$WORKDIR/data.json 不存在,请重新安装！"
+        exit -1
     fi
-    green "keepalive 所使用的页面链接为："
-    purple "$url"    
-    # echo "$url" | xclip-selection c
-    # yellow "上述链接已经为您复制到剪切板，直接到目标位置粘贴即可"
-    printf "\n"
-    cd $path
+
+    if [ -e ./token_generator ];then
+        ./token_generator  ${USERNAME} ${PASSWORD} ${DOMAIN} cronrecovery.php 
+    else
+        red "错误：$WORKDIR/token_generator 不存在,请重新安装！"
+    fi
+}
+
+show_token(){
+    if [ -e ./token.txt ];then
+        text=$(cat ./token.txt)
+        green "token如下："
+        purple "$text\n"    
+    else
+        red "错误：$WORKDIR/data.json 不存在,请重新安装！"
+    fi   
 }
 
 update_base_info(){
     generate_base_info
-    show_url
+    #show_url
+    generate_token
 }
 
 #主菜单
@@ -128,7 +157,7 @@ menu() {
    cd $WORKDIR
    clear
    echo ""
-   purple "============ serv00|ct8 恢复定时任务 一键安装脚本 =======\n"
+   purple "============ serv00|ct8 恢复定时任务 一键安装脚本 v1.0.0=======\n"
    echo -e "${green}脚本地址：${re}${yellow}https://github.com/sunq945/serv00-ct8_cron_recovery${re}\n"
    purple "转载请注明出处，请勿滥用\n"
    green "1. 安装"
@@ -137,7 +166,7 @@ menu() {
    echo  "==========================="
    green "3. 更新网页用户名和密码"
    echo  "==========================="
-   green "4. 查看网页链接信息"
+   green "4. 查看token信息"
    echo  "==========================="   
    red "5. 卸载"
    echo  "===========================" 
@@ -149,7 +178,7 @@ menu() {
         1) setup ;;
         2) generate_cron_snapshot ;; 
         3) update_base_info ;;
-        4) show_url ;;
+        4) show_token ;;
         5) uninstall ;;      
         0) exit 0 ;;
         *) red "无效的选项，请输入 0 到 5" ;;
